@@ -1,10 +1,13 @@
 import React from "react";
+import { theme } from "./helpers/theme";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { NavigationMenu } from "./components/NavigationMenu.jsx";
 
 const App = () => {
   return (
-    <div>
-      <h1>Hello World!</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <NavigationMenu />
+    </ThemeProvider>
   );
 };
 
