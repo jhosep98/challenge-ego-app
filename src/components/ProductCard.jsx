@@ -1,23 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-
+import React, { Fragment, useEffect, useState } from 'react';
+import { GridCars } from './GridCars';
+import { Grid } from '@material-ui/core';
 import { useStyles } from '../styled/productCard';
-import { Grid, Typography } from '@material-ui/core';
+import { NewCarComponent } from './NewCarComponent';
+import hilux from '../../public/img/hilux.png';
 
 export const ProductCard = ({ filterCar, sortCar }) => {
   const [cars, setCars] = useState([]);
   const classes = useStyles();
 
-  useEffect(() => {
-    getCars();
-  }, []);
+  const newCar = {
+    id: 12,
+    name: 'Hilux',
+    segment: 'Pickups y Comerciales',
+    year: 2020,
+    price: 1507000,
+    photo: hilux,
+  };
 
   const getCars = async () => {
     const url = 'https://challenge.agenciaego.tech/models';
     const resp = await fetch(url);
     const data = await resp.json();
+    data.push(newCar);
     setCars(data);
   };
+
+  useEffect(() => {
+    getCars();
+  }, []);
 
   const newData = cars.filter((car) => car.segment === filterCar);
 
@@ -43,63 +54,45 @@ export const ProductCard = ({ filterCar, sortCar }) => {
       <Grid container spacing={3}>
         {orderCar &&
           orderCar.map((car) => (
-            <Cars
-              key={car.id}
-              name={car.name}
-              year={car.year}
-              price={car.price}
-              photo={car.photo}
-            />
+            <Fragment key={car.id}>
+              {car.id === 12 ? (
+                <NewCarComponent
+                  name={car.name}
+                  year={car.year}
+                  price={car.price}
+                  photo={car.photo}
+                />
+              ) : (
+                <GridCars
+                  name={car.name}
+                  year={car.year}
+                  price={car.price}
+                  photo={car.photo}
+                />
+              )}
+            </Fragment>
           ))}
         {orderCar.length > 0 ||
           cars.map((car) => (
-            <Cars
-              key={car.id}
-              name={car.name}
-              year={car.year}
-              price={car.price}
-              photo={car.photo}
-            />
+            <Fragment key={car.id}>
+              {car.id === 12 ? (
+                <NewCarComponent
+                  name={car.name}
+                  year={car.year}
+                  price={car.price}
+                  photo={car.photo}
+                />
+              ) : (
+                <GridCars
+                  name={car.name}
+                  year={car.year}
+                  price={car.price}
+                  photo={car.photo}
+                />
+              )}
+            </Fragment>
           ))}
       </Grid>
     </div>
-  );
-};
-
-const CustomTypography = styled(Typography)`
-  &::after {
-    content: '';
-    width: 1px;
-    height: 13px;
-    display: inline-block;
-    background: #191919;
-    margin: 0 10px;
-  }
-`;
-
-const Cars = ({ name, year, price, photo }) => {
-  const classes = useStyles();
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
-
-  return (
-    <Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridItem}>
-      <Typography variant="h6" className={classes.titleCar}>
-        {name}
-      </Typography>
-      <div className={classes.paragraphDivider}>
-        <CustomTypography paragraph>{year}</CustomTypography>
-        <Typography paragraph>{formatter.format(price)}</Typography>
-      </div>
-      <div>
-        <img
-          src={`https://challenge.agenciaego.tech${photo}`}
-          alt={name}
-          className={classes.imgCar}
-        />
-      </div>
-    </Grid>
   );
 };

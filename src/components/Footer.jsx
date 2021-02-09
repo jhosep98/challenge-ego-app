@@ -1,6 +1,5 @@
-import React from "react";
-import styled from "styled-components";
-import { Box } from "@material-ui/core";
+import React from 'react';
+import styled from 'styled-components';
 
 const CustomFooter = styled.footer`
   height: 50px;

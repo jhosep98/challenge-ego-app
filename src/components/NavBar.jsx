@@ -23,6 +23,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { useStyles } from '../styled/navBar';
+import { Link } from 'react-router-dom';
 
 const CustomTypography = styled(Typography)`
   margin-right: 1.2rem;
@@ -38,7 +39,7 @@ const CustomTab = styled(Tab)`
 
 export const NavBar = () => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(0);
   const classes = useStyles();
   const theme = useTheme();
 
@@ -77,8 +78,12 @@ export const NavBar = () => {
                 aria-label="tabs menu navigation"
                 className={classes.tabsCustom}
               >
-                <CustomTab label="Modelos" />
-                <CustomTab label="Ficha de Modelo" />
+                <CustomTab label="Modelos" component={Link} to="/" />
+                <CustomTab
+                  label="Ficha de Modelo"
+                  component={Link}
+                  to="/description"
+                />
               </Tabs>
             </Hidden>
             <CustomTypography

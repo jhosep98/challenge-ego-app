@@ -1,36 +1,8 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Box, Divider, Hidden, Link, Typography } from '@material-ui/core';
-import { useStyles } from '../styled/productHeader';
 import { ProductCard } from './ProductCard';
-
-const TypographyTabs = styled(Typography)`
-  text-transform: none;
-  font-size: 14px;
-  font-weight: ${(props) => (props.filter ? 700 : 'normal')};
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: 0.08px;
-  color: #373737;
-  margin-right: ${(props) => (props.nomargin ? 'none' : '3rem')};
-  cursor: pointer;
-`;
-
-const CustomOption = styled.option`
-  color: #191919;
-  padding: 2rem;
-  display: ${(props) => (props.none ? 'none' : 'block')};
-`;
-
-const CustomLink = styled(Link)`
-  &:hover {
-    text-decoration: none;
-    background-color: #ddd;
-    padding: 0.4rem;
-    border-radius: 10px;
-  }
-`;
+import { Box, Divider, Hidden, Typography } from '@material-ui/core';
+import { useStyles } from '../styled/productHeader';
+import { CustomLink, CustomOption, TypographyTabs } from '../styled/index';
 
 export const ProductHeader = () => {
   const [filterCar, setFilterCar] = useState('filter');
@@ -90,19 +62,20 @@ export const ProductHeader = () => {
             <select
               className={classes.selectControl}
               onChange={(e) => setSortCar(e.target.value)}
-              value={filterCar}
+              value={sortCar}
             >
               <CustomOption
                 value="order"
-                selected
                 disabled
                 classes={classes.customOptionNone}
                 none="true"
               >
                 Ordenar por
               </CustomOption>
-              <CustomOption value="nada">Nada</CustomOption>
-              <CustomOption value="menor">De menor a mayor precio</CustomOption>
+              <CustomOption value="Nada">Nada</CustomOption>
+              <CustomOption value="menor ">
+                De menor a mayor precio
+              </CustomOption>
               <CustomOption value="mayor">De mayor a menor precio</CustomOption>
               <CustomOption value="nuevo">Más nuevos primero</CustomOption>
               <CustomOption value="viejo">Más viejos primero</CustomOption>

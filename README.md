@@ -10,13 +10,7 @@
 
 ## Screenshots
 
-- Desktop
-
 ![ego - app](./public/img/ego-app.png)
-
-- Responsive
-
-![ego - app](./public/img/ego-app-responsive.png)
 
 ## Technologies
 
