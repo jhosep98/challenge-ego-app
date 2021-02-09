@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useStyles } from '../styled/productCard';
 import { Grid, Typography } from '@material-ui/core';
 
-export const ProductCard = ({ filterCar }) => {
+export const ProductCard = ({ filterCar, sortCar }) => {
   const [cars, setCars] = useState([]);
   const classes = useStyles();
 
@@ -20,11 +20,29 @@ export const ProductCard = ({ filterCar }) => {
   };
 
   const newData = cars.filter((car) => car.segment === filterCar);
+
+  const orderBy = (order, data) => {
+    switch (order) {
+      case 'menor':
+        return data.sort((a, b) => a.price - b.price);
+      case 'mayor':
+        return data.sort((a, b) => b.price - a.price);
+      case 'nuevo':
+        return data.sort((a, b) => b.year - a.year);
+      case 'viejo':
+        return data.sort((a, b) => a.year - b.year);
+      default:
+        return data;
+    }
+  };
+
+  const orderCar = orderBy(sortCar, newData);
+
   return (
     <div className={classes.containerCars}>
       <Grid container spacing={3}>
-        {newData &&
-          newData.map((car) => (
+        {orderCar &&
+          orderCar.map((car) => (
             <Cars
               key={car.id}
               name={car.name}
@@ -33,7 +51,7 @@ export const ProductCard = ({ filterCar }) => {
               photo={car.photo}
             />
           ))}
-        {newData.length > 0 ||
+        {orderCar.length > 0 ||
           cars.map((car) => (
             <Cars
               key={car.id}

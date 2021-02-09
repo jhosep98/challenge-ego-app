@@ -38,7 +38,6 @@ export const useStyles = makeStyles((theme) => ({
     fontStyle: 'normal',
     lineHeight: 1.3,
     boxSizing: 'border-box',
-    padding: '.4em .4em .5em 0',
     marginBottom: '1.2rem',
     width: '140px',
   },

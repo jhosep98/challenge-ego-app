@@ -4,8 +4,19 @@
 
 ## Table of contents
 
+- [Screenshots](#screenshots)
 - [Technologies](#technologies)
 - [Contact](#contact)
+
+## Screenshots
+
+- Desktop
+
+![ego - app](./public/img/ego-app.png)
+
+- Responsive
+
+![ego - app](./public/img/ego-app-responsive.png)
 
 ## Technologies
 
@@ -13,7 +24,8 @@
 - Css
 - Javascript
 - Reactjs
-- Bootstrap
+- Material - ui
+- Styled - components
 
 ## Contact
 

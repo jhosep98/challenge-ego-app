@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Box, Divider, Hidden, Typography } from '@material-ui/core';
+import { Box, Divider, Hidden, Link, Typography } from '@material-ui/core';
 import { useStyles } from '../styled/productHeader';
 import { ProductCard } from './ProductCard';
 
@@ -14,6 +14,7 @@ const TypographyTabs = styled(Typography)`
   letter-spacing: 0.08px;
   color: #373737;
   margin-right: ${(props) => (props.nomargin ? 'none' : '3rem')};
+  cursor: pointer;
 `;
 
 const CustomOption = styled.option`
@@ -22,8 +23,18 @@ const CustomOption = styled.option`
   display: ${(props) => (props.none ? 'none' : 'block')};
 `;
 
+const CustomLink = styled(Link)`
+  &:hover {
+    text-decoration: none;
+    background-color: #ddd;
+    padding: 0.4rem;
+    border-radius: 10px;
+  }
+`;
+
 export const ProductHeader = () => {
   const [filterCar, setFilterCar] = useState('filter');
+  const [sortCar, setSortCar] = useState('order');
   const classes = useStyles();
 
   return (
@@ -37,11 +48,19 @@ export const ProductHeader = () => {
             <TypographyTabs paragraph filter="true">
               Filtrar por
             </TypographyTabs>
-            <TypographyTabs paragraph>Todos</TypographyTabs>
-            <TypographyTabs paragraph>Autos</TypographyTabs>
-            <TypographyTabs paragraph>Pickups y Comerciales</TypographyTabs>
-            <TypographyTabs ypographyTabs paragraph nomargin="true">
-              SUVs Y Crossovers
+
+            <TypographyTabs paragraph>
+              <CustomLink color="inherit">Todos</CustomLink>
+            </TypographyTabs>
+
+            <TypographyTabs paragraph>
+              <CustomLink color="inherit">Autos</CustomLink>
+            </TypographyTabs>
+            <TypographyTabs paragraph>
+              <CustomLink color="inherit">Pickups y Comerciales</CustomLink>
+            </TypographyTabs>
+            <TypographyTabs paragraph nomargin="true">
+              <CustomLink color="inherit">SUVs Y Crossovers</CustomLink>
             </TypographyTabs>
           </div>
         </Hidden>
@@ -68,9 +87,13 @@ export const ProductHeader = () => {
         </Hidden>
         <div className={classes.selectOrder}>
           <form>
-            <select name="order" id="order" className={classes.selectControl}>
+            <select
+              className={classes.selectControl}
+              onChange={(e) => setSortCar(e.target.value)}
+              value={filterCar}
+            >
               <CustomOption
-                value="ordenar"
+                value="order"
                 selected
                 disabled
                 classes={classes.customOptionNone}
@@ -81,14 +104,14 @@ export const ProductHeader = () => {
               <CustomOption value="nada">Nada</CustomOption>
               <CustomOption value="menor">De menor a mayor precio</CustomOption>
               <CustomOption value="mayor">De mayor a menor precio</CustomOption>
-              <CustomOption value="nuevos">Más nuevos primero</CustomOption>
-              <CustomOption value="viejos">Más viejos primero</CustomOption>
+              <CustomOption value="nuevo">Más nuevos primero</CustomOption>
+              <CustomOption value="viejo">Más viejos primero</CustomOption>
             </select>
           </form>
         </div>
       </div>
       <Divider variant="middle" />
-      <ProductCard filterCar={filterCar} />
+      <ProductCard filterCar={filterCar} sortCar={sortCar} />
     </Box>
   );
 };
