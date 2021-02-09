@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import clsx from "clsx";
+import React, { useState } from 'react';
+import clsx from 'clsx';
+import styled from 'styled-components';
+import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
+import logo from '../../public/img/logo.png';
+import logoResponsive from '../../public/img/logo@2x.png';
 import {
   AppBar,
   Avatar,
@@ -17,13 +21,8 @@ import {
   Toolbar,
   Typography,
   useTheme,
-} from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/Close";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import logo from "../../public/assets/img/logo.png";
-import logoResponsive from "../../public/assets/img/logo@2x.png";
-import { useStyles } from "../styled/Navigation";
+} from '@material-ui/core';
+import { useStyles } from '../styled/navBar';
 
 const CustomTypography = styled(Typography)`
   margin-right: 1.2rem;
@@ -31,13 +30,17 @@ const CustomTypography = styled(Typography)`
 
 const CustomTab = styled(Tab)`
   text-transform: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #191919;
+  padding-left: 0;
 `;
 
-export const NavigationMenu = () => {
-  const classes = useStyles();
-  const theme = useTheme();
+export const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(1);
+  const classes = useStyles();
+  const theme = useTheme();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -54,9 +57,9 @@ export const NavigationMenu = () => {
   return (
     <>
       <div className={classes.root}>
-        <CssBaseline />
         <AppBar
           position="fixed"
+          elevation={1}
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
@@ -72,7 +75,7 @@ export const NavigationMenu = () => {
                 textColor="secondary"
                 onChange={handleChange}
                 aria-label="tabs menu navigation"
-                className={classes.tabasCustom}
+                className={classes.tabsCustom}
               >
                 <CustomTab label="Modelos" />
                 <CustomTab label="Ficha de Modelo" />
@@ -108,31 +111,36 @@ export const NavigationMenu = () => {
               Cerrar
             </Typography>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" && <CloseIcon />}
+              {theme.direction === 'ltr' && <CloseIcon />}
             </IconButton>
           </div>
           <List component="nav">
             {[
-              "Modelos",
-              "Servicios y Accesorios",
-              "Financiación",
-              "Reviews y Comunidad",
-              "Toyota Mobility Service",
-              "Toyota Gazoo Racing",
-              "Toyota Híbridos",
-              "Concesionarios",
-              "Test Drive",
-              "Contacto",
-              "Actividades",
-              "Servicios al Cliente",
-              "Ventas Especiales",
-              "Innovación",
-              "Prensa",
-              "Acerca de...",
-            ].map((text) => (
-              <ListItem button className={classes.listItem} key={text}>
-                <ListItemText primary={text} />
-              </ListItem>
+              'Modelos',
+              'Servicios y Accesorios',
+              'Financiación',
+              'Reviews y Comunidad',
+              'Toyota Mobility Service',
+              'Toyota Gazoo Racing',
+              'Toyota Híbridos',
+              'Concesionarios',
+              'Test Drive',
+              'Contacto',
+              'Actividades',
+              'Servicios al Cliente',
+              'Ventas Especiales',
+              'Innovación',
+              'Prensa',
+              'Acerca de...',
+            ].map((text, index) => (
+              <React.Fragment key={text}>
+                <ListItem button className={classes.listItem}>
+                  <ListItemText primary={text} />
+                </ListItem>
+                {index === 3 ? <Divider variant="middle" /> : null}
+                {index === 6 ? <Divider variant="middle" /> : null}
+                {index === 9 ? <Divider variant="middle" /> : null}
+              </React.Fragment>
             ))}
           </List>
         </Drawer>

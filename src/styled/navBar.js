@@ -8,12 +8,12 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   logo: {
-    marginRight: theme.spacing(4),
     [theme.breakpoints.down("xs")]: {
       flexGrow: 1,
     },
+    marginRight: theme.spacing(2),
   },
-  tabasCustom: {
+  tabsCustom: {
     flexGrow: 1,
   },
   appBar: {
