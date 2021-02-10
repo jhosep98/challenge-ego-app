@@ -67,7 +67,9 @@ export const NavBar = () => {
         >
           <Toolbar>
             <ListItemAvatar className={classes.logo}>
-              <Avatar alt="logo" src={logo} srcSet={logoResponsive} />
+              <Link to="/">
+                <Avatar alt="logo" src={logo} srcSet={logoResponsive} />
+              </Link>
             </ListItemAvatar>
             <Hidden xsDown>
               <Tabs
