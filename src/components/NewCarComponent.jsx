@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../styled/productCard';
 import { CustomTypography, CustomButton } from '../styled';
+import { Link } from 'react-router-dom';
 
 export const NewCarComponent = ({ name, year, price, photo }) => {
   const classes = useStyles();
@@ -22,7 +23,9 @@ export const NewCarComponent = ({ name, year, price, photo }) => {
       <div>
         <img src={photo} alt={name} className={classes.imgCar} />
       </div>
-      <CustomButton variant="contained">Ver Modelo</CustomButton>
+      <CustomButton variant="contained" component={Link} to="/description">
+        Ver Modelo
+      </CustomButton>
     </Grid>
   );
 };

@@ -4,22 +4,22 @@ import { Link, Typography, Button } from '@material-ui/core';
 // Product Header Component
 
 export const TypographyTabs = styled(Typography)`
-  text-transform: none;
+  color: #373737;
+  cursor: pointer;
   font-size: 14px;
-  font-weight: ${(props) => (props.filter ? 700 : 'normal')};
   font-stretch: normal;
   font-style: normal;
-  line-height: 1;
+  font-weight: ${(props) => (props.filter ? 700 : 'normal')};
   letter-spacing: 0.08px;
-  color: #373737;
+  line-height: 1;
   margin-right: ${(props) => (props.nomargin ? 'none' : '3rem')};
-  cursor: pointer;
+  text-transform: none;
 `;
 
 export const CustomOption = styled.option`
   color: #191919;
-  padding: 2rem;
   display: ${(props) => (props.none ? 'none' : 'block')};
+  padding: 2rem;
 `;
 
 export const CustomLink = styled(Link)`
@@ -44,11 +44,11 @@ export const CustomButton = styled(Button)`
 
 export const CustomTypography = styled(Typography)`
   &::after {
-    content: '';
-    width: 1px;
-    height: 13px;
-    display: inline-block;
     background: #191919;
+    content: '';
+    display: inline-block;
+    height: 13px;
     margin: 0 10px;
+    width: 1px;
   }
 `;
