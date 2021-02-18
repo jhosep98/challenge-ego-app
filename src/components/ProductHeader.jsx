@@ -4,26 +4,22 @@ import {
   Box,
   Divider,
   FormControl,
-  Hidden,
+  Grid,
+  InputLabel,
   NativeSelect,
   Typography,
 } from '@material-ui/core';
 import { useStyles } from '../styled/productHeader';
-import { CustomLink, TypographyTabs } from '../styled/index';
 import CarsFinder from '../api/CarsFinder';
 import hilux from '../../public/img/hilux.png';
+import { orderedCar } from '../helpers/orderCar';
+import { filteredCar } from '../helpers/filterCar';
 
 export const ProductHeader = () => {
   const classes = useStyles();
 
-  const [filterCar, setFilterCar] = useState({
-    type: '',
-  });
-
-  const [orderCar, setOrderCar] = useState({
-    order: '',
-  });
-
+  // const [filterCar, setFilterCar] = useState('todos');
+  const [orderCar, setOrderCar] = useState('nada');
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
@@ -47,50 +43,18 @@ export const ProductHeader = () => {
     fetchData();
   }, [setCars]);
 
-  const autos = useMemo(
-    () => cars && cars.filter((c) => c.segment === 'Autos'),
-    [cars]
-  );
-  console.log(autos);
-
-  const pickups = useMemo(
-    () => cars && cars.filter((c) => c.segment === 'Pickups y Comerciales'),
-    [cars]
-  );
-
-  const suvs = useMemo(
-    () => cars && cars.filter((c) => c.segment === 'SUVs y Crossovers'),
-    [cars]
-  );
-
-  const handleFilterAutos = () => {
-    setCars(autos);
-  };
-
-  const handleFilterPickups = () => {
-    setCars(pickups);
-  };
-
-  const handleFilterSuvs = () => {
-    setCars(suvs);
-  };
-
   // filter
-  const handleChangeFilter = (event) => {
-    const type = event.target.name;
-    setFilterCar({
-      [type]: event.target.value,
-    });
-    setCars(cars.filter((car) => car.segment === event.target.value));
-  };
+  // const handleChangeFilter = (e) => {
+  //   const value = e.target.value;
+  //   setFilterCar(value);
+  //   filteredCar(value, cars);
+  // };
 
   // order
-  const handleChangeOrder = (event) => {
-    const type = event.target.name;
-    setOrderCar({
-      [type]: event.target.value,
-    });
-    setCars(cars.sort((a, b) => a.price - b.price));
+  const handleChangeOrder = (e) => {
+    const value = e.target.value;
+    setOrderCar(value);
+    orderedCar(value, cars);
   };
 
   return (
@@ -99,82 +63,40 @@ export const ProductHeader = () => {
         Descubrí todos los modelos
       </Typography>
       <div className={classes.containerFilters}>
-        <Hidden smDown>
-          <div className={classes.containerTabsFilter}>
-            <TypographyTabs paragraph filter="true">
-              Filtrar por
-            </TypographyTabs>
-
-            <TypographyTabs
-              paragraph
-              onClick={() => {
-                setCars(cars);
-              }}
-            >
-              <CustomLink color="inherit">Todos</CustomLink>
-            </TypographyTabs>
-
-            <TypographyTabs paragraph onClick={handleFilterAutos}>
-              <CustomLink color="inherit">Autos</CustomLink>
-            </TypographyTabs>
-
-            <TypographyTabs paragraph onClick={handleFilterPickups}>
-              <CustomLink color="inherit">Pickups y Comerciales</CustomLink>
-            </TypographyTabs>
-
-            <TypographyTabs
-              paragraph
-              nomargin="true"
-              onClick={handleFilterSuvs}
-            >
-              <CustomLink color="inherit">SUVs Y Crossovers</CustomLink>
-            </TypographyTabs>
-          </div>
-        </Hidden>
-        <Hidden mdUp>
+        {/* <div className={classes.selectOrder}>
           <FormControl>
+            <InputLabel htmlFor="filter-car">Filtrar por:</InputLabel>
             <NativeSelect
-              value={filterCar.type}
-              name="filter"
+              id="filter-car"
+              value={filterCar}
               onChange={handleChangeFilter}
-              inputProps={{ 'aria-label': 'filter' }}
               disableUnderline={true}
             >
-              <option value="" disabled>
-                Filtrar por
-              </option>
-              <option value="Todos">Todos</option>
-              <option value="Autos">Autos</option>
-              <option value="Pickups y Comerciales">
-                Pickups y Comerciales
-              </option>
-              <option value="SUVs y Crossovers">SUVs y Crossovers</option>
+              <option value="todos">Todos</option>
+              <option value="autos">Autos</option>
+              <option value="pickups">Pickups y Comerciales</option>
+              <option value="suvs">SUVs y Crossovers</option>
             </NativeSelect>
           </FormControl>
-        </Hidden>
+        </div> */}
 
-        <FormControl>
-          <NativeSelect
-            value={orderCar.order}
-            name="filter"
-            onChange={handleChangeOrder}
-            inputProps={{ 'aria-label': 'order' }}
-            disableUnderline={true}
-          >
-            <option value="" disabled>
-              Ordernar por
-            </option>
-            <option value="Nada">Nada</option>
-            <option value="De menor a mayor precio">
-              De menor a mayor precio
-            </option>
-            <option value="De mayor a menor precio">
-              De mayor a menor precio
-            </option>
-            <option value="Más nuevos primero">Más nuevos primero</option>
-            <option value="Más viejos primero">Más viejos primero</option>
-          </NativeSelect>
-        </FormControl>
+        <div>
+          <FormControl>
+            <InputLabel htmlFor="order-car">Ordenar por:</InputLabel>
+            <NativeSelect
+              id="order-car"
+              value={orderCar}
+              onChange={handleChangeOrder}
+              disableUnderline={true}
+            >
+              <option value="nada">Nada</option>
+              <option value="menor">De menor a mayor precio</option>
+              <option value="mayor">De mayor a menor precio</option>
+              <option value="nuevos">Más nuevos primero</option>
+              <option value="viejos ">Más viejos primero</option>
+            </NativeSelect>
+          </FormControl>
+        </div>
       </div>
       <Divider variant="middle" />
       <ProductCard cars={cars} />

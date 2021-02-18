@@ -16,8 +16,9 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: '2.5rem',
     display: 'flex',
     alignItems: 'flex-start',
-    [theme.breakpoints.down('md')]: {
-      justifyContent: 'space-between',
+    justifyContent: 'space-between',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
     },
   },
   containerTabsFilter: {
